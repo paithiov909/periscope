@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "typescript": "~5.8.3",
-    "vite": "^7.0.0"
+    "vite": "^7.0.7"
   },
   "dependencies": {
     "canvas-record": "^5.3.0"
