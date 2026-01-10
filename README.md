@@ -25,14 +25,15 @@ server such as [MediaMTX](https://mediamtx.org/).
   - an RTMP server (recommended; e.g. MediaMTX), or
   - a local file path (for quick testing)
 
-## Typical workflow: publish to an RTMP server (MediaMTX)
+## Typical workflow: publish to an RTMP server
 
 ### 1. Start an RTMP server (MediaMTX)
 
 Run MediaMTX on the machine that will receive and redistribute the
-stream (often the same Ubuntu box that runs R). By default, MediaMTX
-listens for RTMP publishes. In the examples below we publish to
-`rtmp://<SERVER_IP>/live/stream`.
+stream (often the same Ubuntu box that runs R).
+
+By default, MediaMTX listens for RTMP publishes. In the examples below
+we publish to `rtmp://<SERVER_IP>/live/stream`.
 
 ### 2. Publish frames from R
 

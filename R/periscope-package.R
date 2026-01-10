@@ -68,12 +68,20 @@ NULL
 
 #' @rdname prscp-stream
 #' @export
-create_stream <- function(name = "rtmp://localhost/live%03d", width = 720, height = 480, fps = 10) {
+create_stream <- function(
+  name = "rtmp://localhost/live%03d",
+  width = 720,
+  height = 480,
+  fps = 10
+) {
   width <- as.integer(width)
   height <- as.integer(height)
   fps <- as.integer(fps)
 
-  if (!all(width >= 1L, height >= 1L, fps >= 1, na.rm = TRUE) || anyNA(c(width, height, fps))) {
+  if (
+    !all(width >= 1L, height >= 1L, fps >= 1, na.rm = TRUE) ||
+      anyNA(c(width, height, fps))
+  ) {
     cli::cli_abort("`width`, `height` and `fps` must be positive integers.")
   }
   if (!is.character(name) || length(name) != 1L) {
