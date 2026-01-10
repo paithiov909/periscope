@@ -71,9 +71,10 @@ dev.off()
 **Notes**:
 
 * `send_frame()` accepts either:
-  * a `nativeRaster` with dimensions `height x width`, or
+  * a `nativeRaster` with dimensions `height * width`, or
   * a vector representing RGBA pixel data, with length `width * height * 4`.
 * The stream is only "alive" while the `prscp_stream` is open. Always call `close()` when done.
+* Streams may terminate if the downstream RTMP endpoint disconnects or times out. In such cases, the ffmpeg process exits and the stream must be recreated.
 
 ### 3. Viewing the stream
 

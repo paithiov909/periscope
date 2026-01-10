@@ -100,7 +100,7 @@ create_stream <- function(
     name_final <- name
   }
   cmd <- glue::glue(
-    "ffmpeg -loglevel error -nostats -f rawvideo -pix_fmt rgba -s {width}x{height} -r {fps} -i pipe:0 -c:v libx264 -preset ultrafast -tune zerolatency -y -f flv {name_final}"
+    "ffmpeg -loglevel error -nostats -f rawvideo -pix_fmt rgba -s {width}x{height} -r {fps} -i pipe:0 -c:v libx264 -preset ultrafast -tune zerolatency -nostdin -y -f flv {name_final}"
   )
   stream <- structure(
     list(
@@ -147,7 +147,7 @@ send_frame <- function(x, frame) {
     cli::cli_abort("`x` must be a valid prscp_stream object.")
   }
   if (inherits(frame, "nativeRaster")) {
-    if (!identical(dim(frame), as.integer(c(x$height, x$width)))) {
+    if (!identical(dim(frame), c(x$height, x$width))) {
       cli::cli_abort("`frame` must have dimensions {x$height}x{x$width}.")
     }
     frame <- as.raw(frame)
@@ -157,6 +157,22 @@ send_frame <- function(x, frame) {
     }
     frame <- as.raw(as.integer(frame) %% 256)
   }
-  writeBin(frame, x$conn)
+
+  tryCatch(
+    withr::with_options(
+      list(warn = 2),
+      writeBin(frame, x$conn)
+    ),
+    error = function(e) {
+      on.exit(close(x), add = TRUE)
+      cli::cli_abort(
+        c(
+          "Failed to write frame to stream. The underlying ffmpeg process may have terminated.",
+          "i" = "'{x$name}' has been closed. Re-create a new stream and try again.",
+          "x" = conditionMessage(e)
+        )
+      )
+    }
+  )
   invisible(frame)
 }

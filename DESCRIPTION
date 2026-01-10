@@ -13,7 +13,8 @@ License: MIT + file LICENSE
 Imports:
     cli,
     colorfast,
-    glue
+    glue,
+    withr
 Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
