@@ -16,7 +16,9 @@ as.raw.nativeRaster <- function(x) {
   NextMethod(x)
 }
 
-#' @keywords internal
+#' Helper function to check if ffmpeg is available
+#'
+#' @returns Returns `TRUE` if ffmpeg is on the PATH.
 #' @export
 has_ffmpeg <- function() {
   Sys.which("ffmpeg") != ""
@@ -55,9 +57,10 @@ has_ffmpeg <- function() {
 #' @param width,height Integer specifying the width and height of the
 #'  streamed frames.
 #' @param fps Integer specifying the frame rate for encoding.
-#' @param x A `prscp_stream` object.
+#' @param x,con A `prscp_stream` object.
 #' @param frame An integer vector of length `width * height * 4` or
 #'  a `nativeRaster` object specifying the raw frame data.
+#' @param ... Ignored.
 #' @returns
 #'  * `create_stream()` returns a new `prscp_stream` object.
 #'  * `close.prscp_stream()` invisibly returns `x`.
@@ -70,8 +73,8 @@ NULL
 #' @export
 create_stream <- function(
   name = "rtmp://localhost/live%03d",
-  width = 720,
-  height = 480,
+  width = 640,
+  height = 320,
   fps = 10
 ) {
   width <- as.integer(width)
@@ -128,13 +131,13 @@ is_available_stream <- function(x) {
 
 #' @rdname prscp-stream
 #' @export
-close.prscp_stream <- function(x) {
-  if (!is_available_stream(x)) {
-    cli::cli_warn("`x` has already been closed.")
-    return(invisible(x))
+close.prscp_stream <- function(con, ...) {
+  if (!is_available_stream(con)) {
+    cli::cli_warn("`con` has already been closed.")
+    return(invisible(con))
   }
-  close(x$conn)
-  invisible(x)
+  close(con$conn)
+  invisible(con)
 }
 
 #' @rdname prscp-stream
@@ -144,7 +147,7 @@ send_frame <- function(x, frame) {
     cli::cli_abort("`x` must be a valid prscp_stream object.")
   }
   if (inherits(frame, "nativeRaster")) {
-    if (!identical(dim(frame), c(x$height, x$width))) {
+    if (!identical(dim(frame), as.integer(c(x$height, x$width)))) {
       cli::cli_abort("`frame` must have dimensions {x$height}x{x$width}.")
     }
     frame <- as.raw(frame)

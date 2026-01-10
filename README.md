@@ -30,7 +30,7 @@ server such as [MediaMTX](https://mediamtx.org/).
 ### 1. Start an RTMP server (MediaMTX)
 
 Run MediaMTX on the machine that will receive and redistribute the
-stream (often the same Ubuntu box that runs R).
+stream (often the same box that runs R).
 
 By default, MediaMTX listens for RTMP publishes. In the examples below
 we publish to `rtmp://<SERVER_IP>/live/stream`.

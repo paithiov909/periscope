@@ -11,8 +11,8 @@
 \usage{
 create_stream(
   name = "rtmp://localhost/live\%03d",
-  width = 720,
-  height = 480,
+  width = 640,
+  height = 320,
   fps = 10
 )
 
@@ -20,7 +20,7 @@ is_prscp_stream(x)
 
 is_available_stream(x)
 
-\method{close}{prscp_stream}(x)
+\method{close}{prscp_stream}(con, ...)
 
 send_frame(x, frame)
 }
@@ -34,7 +34,9 @@ streamed frames.}
 
 \item{fps}{Integer specifying the frame rate for encoding.}
 
-\item{x}{A \code{prscp_stream} object.}
+\item{x, con}{A \code{prscp_stream} object.}
+
+\item{...}{Ignored.}
 
 \item{frame}{An integer vector of length \code{width * height * 4} or
 a \code{nativeRaster} object specifying the raw frame data.}
