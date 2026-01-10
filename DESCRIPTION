@@ -1,0 +1,22 @@
+Package: periscope
+Title: Stream Frame-Based Graphics from R via 'FFmpeg'
+Version: 0.1.0
+Authors@R:
+    person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre"))
+Description: Provides a minimal interface for streaming frame-based
+    graphics generated in R to an external 'FFmpeg' process. Frames are
+    pushed explicitly as RGBA pixel data, while video encoding and
+    transport are handled by 'FFmpeg'. This enables publishing R-generated
+    frames as video streams (e.g. via RTMP) or writing them to local video
+    files, without implementing a rendering loop or video encoder in R.
+License: MIT + file LICENSE
+Imports:
+    cli,
+    colorfast,
+    glue
+Suggests:
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
