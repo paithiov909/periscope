@@ -12,8 +12,8 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 periscope is a tiny R package that lets you publish frames generated in
 R as a video stream by piping raw RGBA pixel data into an external
 ffmpeg process. This makes it possible to show R-generated graphics in
-tools like [OBS Studio](https://obsproject.com/) or
-[VLC](https://videolan.org/vlc/) over a local network, e.g. via an RTMP
+tools like [VLC](https://videolan.org/vlc/) or [OBS
+Studio](https://obsproject.com/) over a local network, e.g. via an RTMP
 server such as [MediaMTX](https://mediamtx.org/).
 
 ## What periscope can do
@@ -61,7 +61,7 @@ for (i in 1:300) {
     paste("Frame", i),
     gp = grid::gpar(fontsize = 60, col = "magenta")
   )
-  frame <- cap(native = TRUE) # Capture grid drawing as 'nativeRaster'
+  frame <- cap(native = TRUE)
   send_frame(st, frame)
 }
 
@@ -69,7 +69,7 @@ close(st)
 dev.off()
 ```
 
-**Notes**:
+#### Notes
 
 - `send_frame()` accepts either:
   - a `nativeRaster` with dimensions `height * width`, or
