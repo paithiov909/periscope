@@ -13,7 +13,8 @@ create_stream(
   name = "rtmp://localhost/live\%03d",
   width = 640,
   height = 320,
-  fps = 10
+  fps = 10,
+  cv = "libx264"
 )
 
 is_prscp_stream(x)
@@ -33,6 +34,8 @@ with an incrementing integer (e.g. \code{"rtmp://localhost/live\%03d"}).}
 streamed frames.}
 
 \item{fps}{Integer specifying the frame rate for encoding.}
+
+\item{cv}{Character string specifying the codec to use.}
 
 \item{x, con}{A \code{prscp_stream} object.}
 

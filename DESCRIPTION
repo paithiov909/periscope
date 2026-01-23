@@ -1,6 +1,6 @@
 Package: periscope
 Title: Stream Frame-Based Graphics from R via 'FFmpeg'
-Version: 0.1.0
+Version: 0.1.1
 Authors@R:
     person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre"))
 Description: Provides a minimal interface for streaming frame-based

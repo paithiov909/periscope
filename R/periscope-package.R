@@ -21,7 +21,7 @@ as.raw.nativeRaster <- function(x) {
 #' @returns Returns `TRUE` if ffmpeg is on the PATH.
 #' @export
 has_ffmpeg <- function() {
-  Sys.which("ffmpeg") != ""
+  nzchar(Sys.which("ffmpeg"))
 }
 
 #' Stream rendered frames from R to ffmpeg
@@ -57,6 +57,7 @@ has_ffmpeg <- function() {
 #' @param width,height Integer specifying the width and height of the
 #'  streamed frames.
 #' @param fps Integer specifying the frame rate for encoding.
+#' @param cv Character string specifying the codec to use.
 #' @param x,con A `prscp_stream` object.
 #' @param frame An integer vector of length `width * height * 4` or
 #'  a `nativeRaster` object specifying the raw frame data.
@@ -75,7 +76,8 @@ create_stream <- function(
   name = "rtmp://localhost/live%03d",
   width = 640,
   height = 320,
-  fps = 10
+  fps = 10,
+  cv = "libx264"
 ) {
   width <- as.integer(width)
   height <- as.integer(height)
@@ -100,7 +102,7 @@ create_stream <- function(
     name_final <- name
   }
   cmd <- glue::glue(
-    "ffmpeg -loglevel error -nostats -f rawvideo -pix_fmt rgba -s {width}x{height} -r {fps} -i pipe:0 -c:v libx264 -preset ultrafast -tune zerolatency -nostdin -y -f flv {name_final}"
+    "ffmpeg -loglevel error -nostats -f rawvideo -pix_fmt rgba -s {width}x{height} -r {fps} -i pipe:0 -c:v {cv} -movflags +faststart -preset ultrafast -tune zerolatency -nostdin -y -f flv {name_final}"
   )
   stream <- structure(
     list(
