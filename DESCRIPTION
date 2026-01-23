@@ -10,6 +10,8 @@ Description: Provides a minimal interface for streaming frame-based
     frames as video streams (e.g. via RTMP) or writing them to local video
     files, without implementing a rendering loop or video encoder in R.
 License: MIT + file LICENSE
+Depends: 
+    R (>= 4.1)
 Imports:
     cli,
     colorfast,
