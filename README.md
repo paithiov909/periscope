@@ -123,12 +123,12 @@ responsible for encoding and transport.
 
 ## Limitations
 
-- Not a real-time renderer: periscope pushes frames only when your R
+- **Not a real-time renderer**: periscope pushes frames only when your R
   code calls `send_frame()`. There is no richer scheduling or
   throttling.
-- No guaranteed frame rate: the effective FPS depends on how fast R can
+- **No guaranteed frame rate**: the effective FPS depends on how fast R can
   generate frames (and how often you call `send_frame()`).
-- RTMP requires a server: RTMP is not a peer-to-peer protocol. To view a
+- **RTMP requires a server**: RTMP is not a peer-to-peer protocol. To view a
   stream from another machine, you typically need an RTMP server
   (e.g. MediaMTX) that listens for publishes.
 
